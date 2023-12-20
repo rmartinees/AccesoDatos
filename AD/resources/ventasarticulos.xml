@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ventasarticulos>
+    <articulo>
+        <codigo>Arti 1</codigo>
+        <denominacion>Bicicleta Plegable</denominacion>
+        <stock>10</stock>
+        <precio>200</precio>
+    </articulo>
+    <ventas>
+        <venta>
+            <numventa>1</numventa>
+            <unidades>2</unidades>
+            <nombrecliente>Alicia Ramos</nombrecliente>
+            <fecha>10-02-2016</fecha>
+        </venta>
+        <venta>
+            <numventa>2</numventa>
+            <unidades>1</unidades>
+            <nombrecliente>Dori Martín</nombrecliente>
+            <fecha>21-02-2016</fecha>
+        </venta>
+    </ventas>
+</ventasarticulos>
