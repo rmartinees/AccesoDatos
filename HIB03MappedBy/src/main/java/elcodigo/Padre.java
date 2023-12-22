@@ -12,7 +12,7 @@ public class Padre {
 	private Long id;
 	private String nombre;
 
-	@OneToMany(  cascade = CascadeType.PERSIST)
+	@OneToMany( mappedBy="padre", cascade = CascadeType.PERSIST)
 	private List<Hijo> hijos = new ArrayList<Hijo>();
 
 	public List<Hijo> getHijos() {
