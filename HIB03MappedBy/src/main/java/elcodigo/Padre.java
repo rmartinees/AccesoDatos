@@ -11,8 +11,8 @@ public class Padre {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
-	
-	@OneToMany( cascade = CascadeType.PERSIST)
+
+	@OneToMany(  cascade = CascadeType.PERSIST)
 	private List<Hijo> hijos = new ArrayList<Hijo>();
 
 	public List<Hijo> getHijos() {
@@ -45,4 +45,14 @@ public class Padre {
 	public Padre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	@Override
+	public String toString() {
+		String h = "{" + "id=" + id + ", nombre='" + nombre + '\'';
+		for (Hijo hij : this.getHijos())
+			h += "\n" + hij.getNombre() + "[" + hij.getId() + "]";
+		
+		return h + '}';
+	}
+
 }
