@@ -10,13 +10,13 @@ public class H001InicializarBBDD {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		System.out.println("Voy a Inicializar mi BBDD con unos Padre e Hijos.");
 		Session session = sf.openSession();
-		session.beginTransaction();
+		session.beginTransaction();  //Si me quitas NO se graba nada!!  ¡¡Pruébalo!
 		Padre padre;
 		  
 		for (int i = 1; i <= 3; ++i) {
 			System.out.println("Generando Padre" + i);
 			session.persist(padre = new Padre("Papa" + i));
-			int lim = (int) (Math.random() * 3.0) + 1;// Siempre tendremos hijos
+			int lim = (int) (Math.random() * 3.0) + 1;// Siempre tendremos entre 1 y 3 hijos
 
 			for (int j = 1; j <= lim; ++j) {
 				System.out.println("\tHijo " + j);
@@ -24,9 +24,12 @@ public class H001InicializarBBDD {
 			}
 		}
 		session.close();
+		System.out.println("Generación Finalizada");
+		
+		System.out.print(" Inspeccionando la BBDD ");
+		H002Listar.listarTodo(sf);
 
 		sf.close();
-		System.out.println("Generación Finalizada");
 	}
 
 }

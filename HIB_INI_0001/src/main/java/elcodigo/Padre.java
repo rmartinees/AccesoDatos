@@ -13,7 +13,7 @@ public class Padre {
 	private String nombre;
 
 	//@OneToMany
-	@OneToMany(mappedBy="padre")
+	@OneToMany(mappedBy="padre",fetch=FetchType.LAZY, cascade={CascadeType.ALL})
 	private List<Hijo> hijos = new ArrayList<Hijo>();
 
 	public List<Hijo> getHijos() {
@@ -52,7 +52,7 @@ public class Padre {
 		String h = "{" + "id=" + id + ", nombre='" + nombre + '\'';
 		if (this.getHijos().isEmpty()) h+=" [Sin hijos]";
 		for (Hijo hij : this.getHijos())
-			h += "\n" + hij.getNombre() + "[" + hij.getId() + "]";
+			h += "\n\t" + hij.getNombre() + "[" + hij.getId() + "]";
 		
 		return h + '}';
 	}

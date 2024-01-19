@@ -7,6 +7,8 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 
 public class Util {
@@ -21,6 +23,44 @@ public class Util {
 			return false;
 		}
 	}
+	
+	public static void printCascadeTypes(Class<?> entityClass) {
+        Field[] fields = entityClass.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(OneToMany.class)) {
+                OneToMany oneToManyAnnotation = field.getAnnotation(OneToMany.class);
+                CascadeType[] cascadeTypes = oneToManyAnnotation.cascade();
+
+                System.out.print("**************** VALOR CAMPO CASCADA *******************************\n* Campo: '" + field.getName() + "', Clase '" + entityClass.getSimpleName() + "': [");
+                for (CascadeType cascadeType : cascadeTypes) {
+                    System.out.print(cascadeType+":");
+                }
+                System.out.println("]\n********************************************************************\n");
+            }
+        }
+    }
+	
+	public static boolean isShowSqlActivated() {
+        Configuration configuration = new Configuration();
+        configuration.configure();  // Load the default configuration
+
+        String showSqlValue = configuration.getProperty("hibernate.show_sql");
+        return showSqlValue != null && Boolean.parseBoolean(showSqlValue);
+    }
+
+	public static String printFetchType(Class<?> entityClass) {
+        Field[] fields = entityClass.getDeclaredFields();
+        
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(OneToMany.class)) {
+                OneToMany oneToManyAnnotation = field.getAnnotation(OneToMany.class);
+                FetchType fetchType = oneToManyAnnotation.fetch();
+
+                return ( "Fetch Type del Campo " + field.getName() + ", Clase " + entityClass.getSimpleName() + " es : " + fetchType);
+            }
+        }
+        return "";
+    }
 
 	public static void init() {
 		Scanner scanner = new Scanner(System.in);

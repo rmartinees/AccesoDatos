@@ -1,18 +1,12 @@
 package elcodigo;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-import jakarta.persistence.OneToMany;
-
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
-public class H002Leer {
+public class H002Listar {
 
 	public static void main(String[] args) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -27,9 +21,7 @@ public class H002Leer {
 	}
 
 	public static void listarTodo(SessionFactory sf) {
-		System.out.println("\n\nMostrando Padres e Hijos");
 		Session session = sf.openSession();
-		session.beginTransaction();
 
 		Query<Padre> qryPad = session.createQuery("From Padre", Padre.class);
 		Query<Hijo> qryHij = session.createQuery("From Hijo", Hijo.class);
@@ -37,17 +29,18 @@ public class H002Leer {
 		List<Padre> listaPad = qryPad.getResultList();
 		List<Hijo> listaHij = qryHij.getResultList();
 
-		System.out.println("Veamos los Padres y sus Hijos");
-		int j = 0;
+		System.out.println("Mostrando Padres e Hijos");
+		
+		System.out.println("\tVeamos los Padres y sus Hijos");
 		for (Padre pater : listaPad) {
-			System.out.println(pater.toString());
+			System.out.println("\t***********************\t"+pater.getNombre());
+			System.out.println("\t" + pater.toString());
 		}
+		System.out.println("\t***********************");
+		System.out.println("\n\tVeamos los Hijos Sueltos");
+		for (Hijo hijus : listaHij)
+			System.out.println("\t" + hijus.toString());
 
-		System.out.println("\nVeamos los Hijos Sueltos");
-		j = 0;
-		for (Hijo hijus : listaHij) {
-			System.out.println(hijus.toString());
-		}
 		System.out.println("\n");
 		session.close();
 	}
